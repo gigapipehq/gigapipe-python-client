@@ -136,7 +136,7 @@ response = gigapipe.root.get_disk_types(provider_id=1, region_id=1)
 
 #### Use your Gigapipe instance to make calls to the library.
 - Obtain your user info
-> Returns non-sensitive user user info
+> Returns non-sensitive user info
 ```python
 user_info = gigapipe_client.users.get_info()
 
@@ -289,8 +289,8 @@ gigapipe.organizations.delete_organization()
 # Payload response when there are unpaid invoices and the system 
 # could not charge the invoice to the current credit card
 {
-    "payment_link": null,
-    "organization_deleted": true
+    "payment_link": "some_payment_link",
+    "organization_deleted": false
 }
 ```
 
@@ -331,7 +331,7 @@ gigapipe.roles.switch({
 #### Use your Gigapipe instance to make calls to the library.
 
 - Create a cluster
-> Note that the cluster isn't immediately available upon creation. it will take some time for Kubernetes to have it ready and running, hence the message: 'Cluster creation in progress.' 
+> Note that the cluster isn't immediately available upon creation. It will take some time for Kubernetes to have it ready and running, hence the message: 'Cluster creation in progress.' 
 > Feel free to query the cluster after a few minutes, when it will for sure be ready.
 ```python
 gigapipe.clusters.create_cluster({
@@ -527,7 +527,7 @@ gigapipe.clusters.stop_cluster(cluster_slug="cluster-test")
 ```
 
 - Resume Cluster
-> Resuming the cluster involves getting it back to normal by restarting its machine. As of that moment, the organization is fully charged yet again.
+> Resuming the cluster involves getting it back to normal by restarting its machine. As of that moment, the organization is fully charged yet again (disks and machines).
 ```python
 gigapipe.clusters.resume_cluster(cluster_slug="cluster-test")
 
