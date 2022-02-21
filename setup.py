@@ -17,7 +17,7 @@ setup(
     version=VERSION,
     description='Gigapipe Python Client',
     long_description_content_type='text/markdown',
-    long_description=open('README.md').read(),  # + '\n\n' + open('CHANGELOG.txt').read(),
+    long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.txt').read(),
     url='https://www.gigapipe.com',
     project_urls={
         "Github": "https://github.com/gigapipehq/gigapipe-python-client"
