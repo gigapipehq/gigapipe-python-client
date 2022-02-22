@@ -33,7 +33,7 @@ That's it, this is all you need to start using the Gigapipe API!
 - Obtain the providers
 > Returns the list of Gigapipe providers
 ```python
-providers = gigapipe.root.get_providers()
+providers = gigapipe_client.root.get_providers()
 
 # Payload response
 [
@@ -48,7 +48,7 @@ providers = gigapipe.root.get_providers()
 - Obtain the regions
 > Returns all the available regions for a given provider
 ```python
-regions = gigapipe.root.get_regions(provider_id=1)
+regions = gigapipe_client.root.get_regions(provider_id=1)
 
 # Payload response
 [
@@ -68,7 +68,7 @@ regions = gigapipe.root.get_regions(provider_id=1)
 - Obtain the machines
 > Returns all the available machines per provider and region
 ```python
-machines = gigapipe.root.get_machines(provider_id=1, region_id=1)
+machines = gigapipe_client.root.get_machines(provider_id=1, region_id=1)
 
 # Payload response
 [
@@ -95,7 +95,7 @@ machines = gigapipe.root.get_machines(provider_id=1, region_id=1)
 - Obtain a machine
 > Given an id, it returns a machine
 ```python
-machine = gigapipe.root.get_machine(machine_id=1)
+machine = gigapipe_client.root.get_machine(machine_id=1)
 
 # Payload response
 {
@@ -119,7 +119,7 @@ machine = gigapipe.root.get_machine(machine_id=1)
 - Obtain the disk types
 > Returns all the disk types per provider and region
 ```python
-response = gigapipe.root.get_disk_types(provider_id=1, region_id=1)
+response = gigapipe_client.root.get_disk_types(provider_id=1, region_id=1)
 
 # Payload response
 [
@@ -174,7 +174,7 @@ gigapipe_client.users.update_name({
 - Obtain the upcoming invoice
 > Note that the invoice belongs to the organization despite getting it from the user 
 ```python
-user_info = gigapipe.users.get_upcoming_invoice()
+user_info = gigapipe_client.users.get_upcoming_invoice()
 
 # Payload response
 {
@@ -207,7 +207,7 @@ user_info = gigapipe_client.users.get_permissions()
 - Delete your user
 > Note that, if you delete your user using the Gigapipe Client SDK, you will no longer be able to use it and, your program will not be capable of making more requests to the API as authentication will be lost.
 ```python
-gigapipe.users.delete_user()
+gigapipe_client.users.delete_user()
 
 # Payload response when the user is successfully deleted
 {
@@ -232,7 +232,7 @@ gigapipe.users.delete_user()
 - Obtain the users
 > Returns all the users of the organization the user in sessions belongs to
 ```python
-users = gigapipe.organizations.get_users()
+users = gigapipe_client.organizations.get_users()
 
 # Payload response
 [
@@ -249,7 +249,7 @@ users = gigapipe.organizations.get_users()
 - Obtain the invites
 > Returns the list of invites sent by users of your organization
 ```python
-users = gigapipe.organizations.get_invites()
+users = gigapipe_client.organizations.get_invites()
 
 # Payload response
 [
@@ -263,7 +263,7 @@ users = gigapipe.organizations.get_invites()
 - Obtain the upcoming invoice
 > Returns the upcoming invoice your organization will pay at the end of the current month
 ```python
-gigapipe.organizations.get_upcoming_invoice()
+gigapipe_client.organizations.get_upcoming_invoice()
 
 # Payload response
 {
@@ -278,7 +278,7 @@ gigapipe.organizations.get_upcoming_invoice()
 > Note that, when the organization is deleted all its users will be gone as well, the unpaid invoices will be paid automatically using the customer credit card and, the subscription will be cancelled.
 > If you delete your organization using the Gigapipe Client SDK, you will no longer be able to use it and, your program will not be capable of making more requests to the API as authentication will be lost.
 ```python
-gigapipe.organizations.delete_organization()
+gigapipe_client.organizations.delete_organization()
 
 # Payload response when the organization is deleted successfully
 {
@@ -301,7 +301,7 @@ gigapipe.organizations.delete_organization()
 - Send an invitation
 > Sends an email that contains an invitation for a user to sign up on Gigapipe and join the organization
 ```python
-gigapipe.invites.send_invite({
+gigapipe_client.invites.send_invite({
     "email": "laura@tesla.com",
     "organization_name": "Tesla",
 })
@@ -310,7 +310,7 @@ gigapipe.invites.send_invite({
 - Delete an invitation
 > Revokes an invitation so that the user receiving it is no longer allowed to use it
 ```python
-gigapipe.invites.send_invite("laura@tesla.com")
+gigapipe_client.invites.send_invite("laura@tesla.com")
 ```
 
 ### The Roles API
@@ -320,7 +320,7 @@ gigapipe.invites.send_invite("laura@tesla.com")
 - Change the user role
 > If enough permissions, it changes the role of another user inside the organization. e.g. Turn a Member into an Admin
 ```python
-gigapipe.roles.switch({
+gigapipe_client.roles.switch({
     "user_email": "laura@tesla.com",
     "role_name": "Admin"  # (Owner, Admin, Member) 
 })
@@ -334,7 +334,7 @@ gigapipe.roles.switch({
 > Note that the cluster isn't immediately available upon creation. It will take some time for Kubernetes to have it ready and running, hence the message: 'Cluster creation in progress.' 
 > Feel free to query the cluster after a few minutes, when it will for sure be ready.
 ```python
-gigapipe.clusters.create_cluster({
+gigapipe_client.clusters.create_cluster({
     "name": "Cluster Test",
     "machine_id": 1,
     "clickhouse": {
@@ -367,7 +367,7 @@ gigapipe.clusters.create_cluster({
 >
 > To do so, not only should the cluster slug be passed as a parameter but the clickhouse query as well, which has to be a string in the Clickhouse format. In this example the query 'SELECT now()' will be used.
 ```python
-gigapipe.clusters.query_cluster(
+gigapipe_client.clusters.query_cluster(
     cluster_slug="cluster-john", 
     query="SELECT now()"
 )
@@ -397,7 +397,7 @@ gigapipe.clusters.query_cluster(
 - Cluster Metadata
 > Returns a dictionary containing the cluster metadata
 ```python
-gigapipe.clusters.get_metadata(cluster_slug="cluster-john")
+gigapipe_client.clusters.get_metadata(cluster_slug="cluster-john")
 
 # Payload response
 {
@@ -419,7 +419,7 @@ gigapipe.clusters.get_metadata(cluster_slug="cluster-john")
 - Get all the clusters
 > Returns a list of all the clusters created by members of the organization
 ```python
-gigapipe.clusters.get_clusters()
+gigapipe_client.clusters.get_clusters()
 
 # Payload response
 [
@@ -469,7 +469,7 @@ gigapipe.clusters.get_clusters()
 - Get cluster
 > Given a cluster slug, it returns all its info
 ```python
-gigapipe.clusters.get_cluster(cluster_slug="cluster-john")
+gigapipe_client.clusters.get_cluster(cluster_slug="cluster-john")
 
 # Payload response
 
@@ -518,7 +518,7 @@ gigapipe.clusters.get_cluster(cluster_slug="cluster-john")
 > Stopping the cluster doesn't involve getting rid of it. The disks and the data in them will safely be kept, whereas the machine is stopped.
 > In other words, the organization will still be charged in terms of disks but not machines.
 ```python
-gigapipe.clusters.stop_cluster(cluster_slug="cluster-test")
+gigapipe_client.clusters.stop_cluster(cluster_slug="cluster-test")
 
 # Payload response
 {
@@ -529,7 +529,7 @@ gigapipe.clusters.stop_cluster(cluster_slug="cluster-test")
 - Resume Cluster
 > Resuming the cluster involves getting it back to normal by restarting its machine. As of that moment, the organization is fully charged yet again (disks and machines).
 ```python
-gigapipe.clusters.resume_cluster(cluster_slug="cluster-test")
+gigapipe_client.clusters.resume_cluster(cluster_slug="cluster-test")
 
 # Payload response
 {
@@ -540,7 +540,7 @@ gigapipe.clusters.resume_cluster(cluster_slug="cluster-test")
 - Scale Cluster
 > Adds shards and replicas to an existing cluster
 ```python
-gigapipe.clusters.scale_nodes("cluster-test", payload={
+gigapipe_client.clusters.scale_nodes("cluster-test", payload={
     "new_shards": 1,
     "new_replicas": 1
 })
@@ -554,7 +554,7 @@ gigapipe.clusters.scale_nodes("cluster-test", payload={
 - Add disks
 > Adds disks to a cluster
 ```python
-gigapipe.clusters.add_disks("cluster-test", payload={
+gigapipe_client.clusters.add_disks("cluster-test", payload={
     "autoscale_type": "GB",  # Optional (GB, GiB or %)
     "autoscale_value": 10,   # Optional int
     "type": "gp2",
@@ -571,7 +571,7 @@ gigapipe.clusters.add_disks("cluster-test", payload={
 - Change Machine
 > Changes the machine of a cluster
 ```python
-gigapipe.clusters.change_machine("cluster-test", machine_id=2)
+gigapipe_client.clusters.change_machine("cluster-test", machine_id=2)
 
 # Payload response
 {
@@ -582,7 +582,7 @@ gigapipe.clusters.change_machine("cluster-test", machine_id=2)
 - Change the disk autoscaling
 > Sets the disk autoscaling type and value
 ```python
-gigapipe.clusters.autoscale_disk("cluster-test", payload={
+gigapipe_client.clusters.autoscale_disk("cluster-test", payload={
     "autoscale_type": "GB", # (GB, GiB or %)
     "autoscale_value": 15,  # Always integer
     "id": 1                 # The id of the disk to autoscale
@@ -597,7 +597,7 @@ gigapipe.clusters.autoscale_disk("cluster-test", payload={
 - Get autoscaling values
 > Obtains the autoscaling value for a given cluster and disk
 ```python
-gigapipe.clusters.get_autoscaling("cluster-test", disk_id=1)
+gigapipe_client.clusters.get_autoscaling("cluster-test", disk_id=1)
 
 # Payload response
 {
@@ -610,7 +610,7 @@ gigapipe.clusters.get_autoscaling("cluster-test", disk_id=1)
 - Delete disk autiscaling
 > Sets the auscaling type and value to null for a given disk and cluster
 ```python
-gigapipe.clusters.delete_autoscaling("cluster-test", disk_id=1)
+gigapipe_client.clusters.delete_autoscaling("cluster-test", disk_id=1)
 
 # Payload response
 {
@@ -621,7 +621,7 @@ gigapipe.clusters.delete_autoscaling("cluster-test", disk_id=1)
 - Cluster costs
 > The list of all the costs per cluster 
 ```python
-gigapipe.clusters.get_costs(cluster_slug="cluster-test")
+gigapipe_client.clusters.get_costs(cluster_slug="cluster-test")
 
 # Payload response
 [
@@ -636,7 +636,7 @@ gigapipe.clusters.get_costs(cluster_slug="cluster-test")
 - Transfer Cluster
 > Transfers the cluster to another user of the organization as long as they have permission to hold it
 ```python
-gigapipe.clusters.transfer_cluster(
+gigapipe_client.clusters.transfer_cluster(
     cluster_slug="cluster-test", 
     email="target_user@gmail.com"
 )
@@ -650,7 +650,7 @@ gigapipe.clusters.transfer_cluster(
 - Delete Cluster
 > Given a slug, this method deletes a cluster
 ```python
-gigapipe.clusters.delete_cluster(cluster_slug="cluster-test")
+gigapipe_client.clusters.delete_cluster(cluster_slug="cluster-test")
 
 # Payload response
 {
@@ -666,7 +666,7 @@ gigapipe.clusters.delete_cluster(cluster_slug="cluster-test")
 - Create a Clickhouse user
 > Creates a user on Clickhouse for a specific cluster
 ```python
-gigapipe.clichhouse.create_user("cluster-test", user={
+gigapipe_client.clichhouse.create_user("cluster-test", user={
     "username": "Kelly",
     "password": "kelly-pw"
 })
@@ -680,7 +680,7 @@ gigapipe.clichhouse.create_user("cluster-test", user={
 - Get Clickhouse user
 > Obtains a Clickhouse user for a specific cluster
 ```python
-gigapipe.clichhouse.get_users(cluster_slug="cluster-test")
+gigapipe_client.clichhouse.get_users(cluster_slug="cluster-test")
 
 # Payload response
 [
@@ -705,7 +705,7 @@ gigapipe.clichhouse.get_users(cluster_slug="cluster-test")
 - Update a Clickhouse user
 > Updates a user on Clickhouse for a specific cluster
 ```python
-gigapipe.clichhouse.update_user("cluster-test", user={
+gigapipe_client.clichhouse.update_user("cluster-test", user={
     "rename": {
         "username": "Kelly",
         "to": "Maria"
@@ -725,7 +725,7 @@ gigapipe.clichhouse.update_user("cluster-test", user={
 - Delete a Clickhouse user
 > Deletes a user on Clickhouse for a specific cluster
 ```python
-gigapipe.clichhouse.delete_user(cluster_slug="cluster-test", username="Maria")
+gigapipe_client.clichhouse.delete_user(cluster_slug="cluster-test", username="Maria")
 
 # Payload response
 {
@@ -740,7 +740,7 @@ gigapipe.clichhouse.delete_user(cluster_slug="cluster-test", username="Maria")
 >
 > This examples also assumes there's a table named "downloads" which has date, user_id and bytes as fields.
 ```python
-gigapipe.clichhouse.explore_tables(
+gigapipe_client.clichhouse.explore_tables(
     "cluster-test", 
     table_name="downloads",     # Optional
     engine="Distributed"        # Optional
@@ -772,7 +772,7 @@ gigapipe.clichhouse.explore_tables(
 - Get Formats
 > Obtains the clickhouse formats
 ```python
-gigapipe.clichhouse.get_formats()
+gigapipe_client.clichhouse.get_formats()
 
 # Payload response
 [
@@ -797,7 +797,7 @@ gigapipe.clichhouse.get_formats()
 - Import a s3 file
 > Imports S3 data
 ```python
-gigapipe.imports.import_s3_data("cluster-test", {
+gigapipe_client.imports.import_s3_data("cluster-test", {
     "table": "Your table name",
     "path": "your_s3_path",
     "aws_access_key_id": "your_key_id",
@@ -822,7 +822,7 @@ gigapipe.imports.import_s3_data("cluster-test", {
 - Get the imports
 > Obtains all the imports for a given cluster
 ```python
-gigapipe.imports.get_imports(cluster_slug="cluster-test")
+gigapipe_client.imports.get_imports(cluster_slug="cluster-test")
 
 # Payload response
 [
@@ -873,7 +873,7 @@ gigapipe.imports.get_imports(cluster_slug="cluster-test")
 - Get the integrations
 > Obtains the gigapipe integrations
 ```python
-gigapipe.integrations.get_integrations_types()
+gigapipe_client.integrations.get_integrations_types()
 
 # Payload response
 [
@@ -890,7 +890,7 @@ gigapipe.integrations.get_integrations_types()
 - Get the integration types
 > Obtains the gigapipe integration types
 ```python
-gigapipe.integrations.get_integrations()
+gigapipe_client.integrations.get_integrations()
 
 # Payload response
 [
