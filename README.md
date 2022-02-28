@@ -310,7 +310,7 @@ gigapipe_client.invites.send_invite({
 - Obtain an invitation
 > Obtains an invitation that has been sent to a user
 ```python
-invite = gigapipe_client.invites.getinvite(token="your_invite_token")
+invite = gigapipe_client.invites.get_invite(token="your_invite_token")
 
 # Payload response
 {
