@@ -323,7 +323,7 @@ invite = gigapipe_client.invites.get_invite(token="your_invite_token")
 - Delete an invitation
 > Revokes an invitation so that the user receiving it is no longer allowed to use it
 ```python
-gigapipe_client.invites.send_invite("laura@tesla.com")
+gigapipe_client.invites.delete_invite("laura@tesla.com")
 ```
 
 ### The Roles API
