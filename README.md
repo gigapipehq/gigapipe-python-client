@@ -482,7 +482,7 @@ gigapipe_client.clusters.get_clusters()
 - Get cluster
 > Given a cluster slug, it returns all its info
 ```python
-gigapipe_client.clusters.get_cluster(cluster_slug="cluster-john")
+cluster = gigapipe_client.clusters.get_cluster(cluster_slug="cluster-john")
 
 # Payload response
 
