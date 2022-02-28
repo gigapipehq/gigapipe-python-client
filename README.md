@@ -546,7 +546,7 @@ gigapipe_client.clusters.resume_cluster(cluster_slug="cluster-test")
 
 # Payload response
 {
-    "message": "Stopping cluster <cluster-test>..."
+    "message": "Resuming cluster <cluster-test>..."
 }
 ```
 
