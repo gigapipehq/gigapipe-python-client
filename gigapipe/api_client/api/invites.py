@@ -39,6 +39,25 @@ class Invites(Base):
         return response
 
     @GigapipeApi.autorefresh_access_token
+    def get_invite(self, token: str) -> Response:
+        """
+        Obtains an invite that has been sent to a user
+        :return: An invite object
+        """
+        url: str = f"{self.api.url}/{self.api.__class__.version}/invites?token={token}"
+
+        try:
+            response: Response = requests.get(url, headers={
+                "Authorization": f"Bearer {self.api.access_token}"
+            })
+        except requests.RequestException as e:
+            raise GigapipeServerError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                message=f"Internal Server Error: {e}"
+            )
+        return response
+
+    @GigapipeApi.autorefresh_access_token
     def delete_invite(self, email: str) -> Response:
         """
         Deletes a user invite

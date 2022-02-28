@@ -230,7 +230,7 @@ gigapipe_client.users.delete_user()
 #### Use your Gigapipe instance to make calls to the library.
 
 - Obtain the users
-> Returns all the users of the organization the user in sessions belongs to
+> Returns all the users of the organization the user in session belongs to
 ```python
 users = gigapipe_client.organizations.get_users()
 
@@ -249,7 +249,7 @@ users = gigapipe_client.organizations.get_users()
 - Obtain the invites
 > Returns the list of invites sent by users of your organization
 ```python
-users = gigapipe_client.organizations.get_invites()
+invites = gigapipe_client.organizations.get_invites()
 
 # Payload response
 [
@@ -305,6 +305,19 @@ gigapipe_client.invites.send_invite({
     "email": "laura@tesla.com",
     "organization_name": "Tesla",
 })
+```
+
+- Obtain an invitation
+> Obtains an invitation that has been sent to a user
+```python
+invite = gigapipe_client.invites.getinvite(token="your_invite_token")
+
+# Payload response
+{
+    "email": "laura@tesla.com",
+    "organization_name": "Tesla",
+    "organization_slug": "tesla"
+}
 ```
 
 - Delete an invitation
