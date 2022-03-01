@@ -635,7 +635,7 @@ gigapipe_client.clusters.delete_autoscaling("cluster-test", disk_id=1)
 - Cluster costs
 > The list of all the costs per cluster 
 ```python
-gigapipe_client.clusters.get_costs(cluster_slug="cluster-test")
+gigapipe_client.clusters.get_costs()
 
 # Payload response
 [
