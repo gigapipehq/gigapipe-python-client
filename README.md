@@ -577,7 +577,7 @@ gigapipe_client.clusters.add_disks("cluster-test", payload={
 
 # Payload response
 {
-    "message": "Cluster scaling in progress."
+    "message": "Adding disks to cluster <cluster-test>..."
 }
 ```
 
@@ -588,7 +588,7 @@ gigapipe_client.clusters.change_machine("cluster-test", machine_id=2)
 
 # Payload response
 {
-    "message": "Adding disks to cluster <cluster-test>..."
+    "message": "Changing machine in cluster <cluster-test>..."
 }
 ```
 
