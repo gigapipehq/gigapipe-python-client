@@ -568,6 +568,7 @@ gigapipe_client.clusters.scale_nodes("cluster-test", payload={
 > Adds disks to a cluster
 ```python
 gigapipe_client.clusters.add_disks("cluster-test", payload=[{
+    "name": "your_disk_name",
     "autoscale_type": "GB",  # Optional (GB, GiB or %)
     "autoscale_value": 10,   # Optional int
     "type": "gp2",
