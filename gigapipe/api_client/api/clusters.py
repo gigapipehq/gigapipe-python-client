@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 import requests
 from http import HTTPStatus
@@ -219,7 +219,7 @@ class Clusters(Base):
         return response
 
     @GigapipeApi.autorefresh_access_token
-    def add_disks(self, cluster_slug: str, *, payload: list[dict]) -> Response:
+    def add_disks(self, cluster_slug: str, *, payload: List[dict]) -> Response:
         """
         Adds shards and replicas to an existing cluster
         :param cluster_slug: the cluster slug
