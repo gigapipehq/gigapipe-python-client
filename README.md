@@ -680,7 +680,7 @@ gigapipe_client.clusters.delete_cluster(cluster_slug="cluster-test")
 - Create a Clickhouse user
 > Creates a user on Clickhouse for a specific cluster
 ```python
-gigapipe_client.clichhouse.create_user("cluster-test", user={
+gigapipe_client.clickhouse.create_user("cluster-test", user={
     "username": "Kelly",
     "password": "kelly-pw"
 })
@@ -694,7 +694,7 @@ gigapipe_client.clichhouse.create_user("cluster-test", user={
 - Get Clickhouse user
 > Obtains a Clickhouse user for a specific cluster
 ```python
-gigapipe_client.clichhouse.get_users(cluster_slug="cluster-test")
+gigapipe_client.clickhouse.get_users(cluster_slug="cluster-test")
 
 # Payload response
 [
@@ -719,7 +719,7 @@ gigapipe_client.clichhouse.get_users(cluster_slug="cluster-test")
 - Update a Clickhouse user
 > Updates a user on Clickhouse for a specific cluster
 ```python
-gigapipe_client.clichhouse.update_user("cluster-test", user={
+gigapipe_client.clickhouse.update_user("cluster-test", user={
     "rename": {
         "username": "Kelly",
         "to": "Maria"
@@ -739,7 +739,7 @@ gigapipe_client.clichhouse.update_user("cluster-test", user={
 - Delete a Clickhouse user
 > Deletes a user on Clickhouse for a specific cluster
 ```python
-gigapipe_client.clichhouse.delete_user(cluster_slug="cluster-test", username="Maria")
+gigapipe_client.clickhouse.delete_user(cluster_slug="cluster-test", username="Maria")
 
 # Payload response
 {
@@ -754,7 +754,7 @@ gigapipe_client.clichhouse.delete_user(cluster_slug="cluster-test", username="Ma
 >
 > This examples also assumes there's a table named "downloads" which has date, user_id and bytes as fields.
 ```python
-gigapipe_client.clichhouse.explore_tables(
+gigapipe_client.clickhouse.explore_tables(
     "cluster-test", 
     table_name="downloads",     # Optional
     engine="Distributed"        # Optional
@@ -786,7 +786,7 @@ gigapipe_client.clichhouse.explore_tables(
 - Get Formats
 > Obtains the clickhouse formats
 ```python
-gigapipe_client.clichhouse.get_formats()
+gigapipe_client.clickhouse.get_formats()
 
 # Payload response
 [
@@ -885,7 +885,7 @@ gigapipe_client.imports.get_imports(cluster_slug="cluster-test")
 #### Use your Gigapipe instance to make calls to the library.
 
 - Get the integrations
-> Obtains the gigapipe integrations
+> Obtains the gigapipe integration types
 ```python
 gigapipe_client.integrations.get_integrations_types()
 
@@ -902,7 +902,7 @@ gigapipe_client.integrations.get_integrations_types()
 ```
 
 - Get the integration types
-> Obtains the gigapipe integration types
+> Obtains the gigapipe integrations
 ```python
 gigapipe_client.integrations.get_integrations()
 

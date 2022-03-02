@@ -86,7 +86,7 @@ class GigapipeClient(object):
         return self.__clusters
 
     @property
-    def clichhouse(self):
+    def clickhouse(self):
         """
         Clickhouse instance
         :return: The instance that handles all the clickhouse-related calls
