@@ -5,7 +5,7 @@ Based on a managed ClickHouse service, Gigapipe offers a customisable ecosystem 
 Gigapipe is simple. Select your region and configure your machine type in GCP or AWS, select the managed services you want and launch! Gigapipe will deploy your fully managed ClickHouse Cluster and additional services which you can then plug directly into your existing infrastructure.
 Gigapipe is fully managed, easily scalable and incredibly cost-effective.
 
-Should you require further information, do not hesitate to visit the [Gigapipe API Docs](https://docs.gigapipe.com/api/introduction).
+_Should you require further information, do not hesitate to visit the [Gigapipe API Docs](https://docs.gigapipe.com/api/introduction)._
 
 ## What is this library for?
 This is the official Gigapipe API Library for Python. It supports Python 3.x.
@@ -926,4 +926,4 @@ gigapipe_client.integrations.get_integrations()
 
 --- 
 
-Should you require further information, do not hesitate to visit the [Gigapipe API Docs](https://docs.gigapipe.com/api/introduction).
+_Should you require further information, do not hesitate to visit the [Gigapipe API Docs](https://docs.gigapipe.com/api/introduction)._
