@@ -886,7 +886,7 @@ gigapipe_client.imports.get_imports(cluster_slug="cluster-test")
 
 #### Use your Gigapipe instance to make calls to the library.
 
-- Get the integrations
+- Get the integration types
 > Obtains the gigapipe integration types
 ```python
 gigapipe_client.integrations.get_integrations_types()
@@ -903,7 +903,7 @@ gigapipe_client.integrations.get_integrations_types()
 
 ```
 
-- Get the integration types
+- Get the integrations
 > Obtains the gigapipe integrations
 ```python
 gigapipe_client.integrations.get_integrations()
