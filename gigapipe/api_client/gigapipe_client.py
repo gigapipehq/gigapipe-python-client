@@ -17,7 +17,7 @@ class GigapipeClient(object):
     Gigapipe Python Client
     """
 
-    gigapipe_url: str = "https://api.gigapipe.com"
+    gigapipe_url: str = "http://localhost:8000"
 
     def __init__(self, client_id: str):
         """
