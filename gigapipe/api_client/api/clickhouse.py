@@ -145,3 +145,21 @@ class Clickhouse(Base):
             )
         return response
 
+    @GigapipeApi.autorefresh_access_token
+    def get_versions(self) -> Response:
+        """
+        Obtains the clickhouse versions available in Gigapipe
+        :return: A list of ClickHouse version names with their corresponding ids
+        """
+        url: str = f"{self.api.url}/{self.api.__class__.version}/clickhouse/versions"
+
+        try:
+            response: Response = requests.get(url, headers={
+                "Authorization": f"Bearer {self.api.access_token}"
+            })
+        except requests.RequestException as e:
+            raise GigapipeServerError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                message=f"Internal Server Error: {e}"
+            )
+        return response
