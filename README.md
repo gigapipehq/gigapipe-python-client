@@ -678,7 +678,7 @@ gigapipe_client.clusters.delete_cluster(cluster_slug="cluster-test")
 - Change ClickHouse version of Cluster
 > Given a slug and a ClickHouse version id, this method changes the ClickHouse version of a cluster
 ```python
-gigapipe_client.clusters.change_clickhouse_version(cluster_slug="cluster-test", payload={"id": 1})
+gigapipe_client.clusters.change_clickhouse_version("cluster-test", payload={"id": 1})
 
 # Payload response
 {
@@ -691,7 +691,7 @@ gigapipe_client.clusters.change_clickhouse_version(cluster_slug="cluster-test", 
 > Given a cluster slug and a table name, change a table engine to type ReplicatedMergeTree
 ```python
 gigapipe_client.clusters.engine_to_replicated_merge_tree(
-    cluster_slug="cluster-test", 
+    "cluster-test", 
     table_name="clickhouse_table", 
     payload={
         "partition_by": "my_column_name, my_other_column_name",
@@ -710,7 +710,7 @@ gigapipe_client.clusters.engine_to_replicated_merge_tree(
 > Given a cluster slug, external connection parameters and a list of tables, import data from an external cluster.
 ```python
 gigapipe_client.clusters.import_from_external_cluster(
-    cluster_slug="cluster-test",
+    "cluster-test",
     external_cluster_params={
         "host": "route_to_host",
         "port": "port number", 

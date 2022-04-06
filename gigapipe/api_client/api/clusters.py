@@ -346,7 +346,7 @@ class Clusters(Base):
         return response
 
     @GigapipeApi.autorefresh_access_token
-    def change_clickhouse_version(self, cluster_slug: str, payload: Dict[str, int]) -> Response:
+    def change_clickhouse_version(self, cluster_slug: str, *, payload: Dict[str, int]) -> Response:
         """
         Changes Clickhouse version of an existing cluster
         :param cluster_slug: the cluster slug
@@ -368,7 +368,7 @@ class Clusters(Base):
 
     @GigapipeApi.autorefresh_access_token
     def engine_to_replicated_merge_tree(
-            self, cluster_slug: str, table_name: str, payload: Dict[str, str]
+            self, cluster_slug: str, table_name: str, *, payload: Dict[str, str]
     ) -> Response:
         """
         Changes engine of table in ClickHouse cluster to replicated merge tree
@@ -393,7 +393,7 @@ class Clusters(Base):
 
     @GigapipeApi.autorefresh_access_token
     def import_from_external_cluster(
-            self, cluster_slug: str, external_cluster_params: Dict[str, str], table_arrays: List[Dict[str, Any]]
+            self, cluster_slug: str, *, external_cluster_params: Dict[str, str], table_arrays: List[Dict[str, Any]]
     ) -> Response:
         """
         Changes engine of table in ClickHouse cluster to replicated merge tree
