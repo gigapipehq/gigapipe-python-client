@@ -353,13 +353,18 @@ gigapipe_client.clusters.create_cluster({
     "name": "Cluster Test",
     "machine_id": 1,
     "clickhouse": {
+        "version_id": 1,
         "shards": 3,
         "replicas": 1,
         "disks": [
             {
-                "type": "gp2",
+                "name": "string",  # Optional (The first disk does not accept a custom name)
                 "size": 150.0,
-                "unit": "GB"
+                "unit": "GB",
+                "type": {
+                    "name": "gp2"
+                },
+                "autoscaling": False
             }
         ],
         "admin": {
@@ -464,8 +469,7 @@ gigapipe_client.clusters.get_clusters()
         }, 
         "disks": [
             {
-                "autoscale_type": "%", 
-                "autoscale_value": "10GB", 
+                "autoscaling": false, 
                 "type": {
                     "name": "gp2", 
                     "price": 0.00000000045, 
@@ -514,8 +518,7 @@ cluster = gigapipe_client.clusters.get_cluster(cluster_slug="cluster-john")
     }, 
     "disks": [
         {
-            "autoscale_type": "%", 
-            "autoscale_value": "10GB", 
+            "autoscaling": false, 
             "type": {
                 "name": "gp2", 
                 "price": 0.00000000045, 
@@ -571,8 +574,7 @@ gigapipe_client.clusters.scale_nodes("cluster-test", payload={
 ```python
 gigapipe_client.clusters.add_disks("cluster-test", payload=[{
     "name": "your_disk_name",
-    "autoscale_type": "GB",  # Optional (GB, GiB or %)
-    "autoscale_value": 10,   # Optional int
+    "autoscaling": True,
     "type": "gp2",
     "size": 10.0,
     "unit": "GB"
@@ -599,9 +601,7 @@ gigapipe_client.clusters.change_machine("cluster-test", machine_id=2)
 > Sets the disk autoscaling type and value
 ```python
 gigapipe_client.clusters.autoscale_disk("cluster-test", payload={
-    "autoscale_type": "GB", # (GB, GiB or %)
-    "autoscale_value": 15,  # Always integer
-    "id": 1                 # The id of the disk to autoscale
+    "id": 1  # The id of the disk to autoscale
 })
 
 # Payload response
@@ -610,27 +610,27 @@ gigapipe_client.clusters.autoscale_disk("cluster-test", payload={
 }
 ```
 
-- Get autoscaling values
-> Obtains the autoscaling value for a given cluster and disk
-```python
-gigapipe_client.clusters.get_autoscaling("cluster-test", disk_id=1)
-
-# Payload response
-{
-    "autoscale_type": "GB",
-    "autoscale_value": 15,
-    "id": 1
-}
-```
-
-- Delete disk autiscaling
-> Sets the auscaling type and value to null for a given disk and cluster
+- Delete disk autoscaling
+> Sets the autoscaling type and value to null for a given disk and cluster
 ```python
 gigapipe_client.clusters.delete_autoscaling("cluster-test", disk_id=1)
 
 # Payload response
 {
     "message": "Disk autoscaling successfully deleted for disk: <1>"
+}
+```
+
+- Disk Expansion
+> Expands a disk base on a cluster a disk id and a size
+```python
+gigapipe_client.clusters.expand_disk('cluster2', disk_id=1, payload={
+    'size': 10.0
+})
+
+# Payload response
+{
+    "message": "Expanding disk 1 on cluster <cluster-test>..."
 }
 ```
 
@@ -672,6 +672,61 @@ gigapipe_client.clusters.delete_cluster(cluster_slug="cluster-test")
 {
     "message": "Cluster deletion in progress.",
     ...
+}
+```
+
+- Change ClickHouse version of Cluster
+> Given a slug and a ClickHouse version id, this method changes the ClickHouse version of a cluster
+```python
+gigapipe_client.clusters.change_clickhouse_version("cluster-test", payload={"id": 1})
+
+# Payload response
+{
+    "message": "Changing ClickHouse version in cluster 'cluster-test'...",
+    ...
+}
+```
+
+- Change table engine to ReplicatedMergeTree type
+> Given a cluster slug and a table name, change a table engine to type ReplicatedMergeTree
+```python
+gigapipe_client.clusters.engine_to_replicated_merge_tree(
+    "cluster-test", 
+    table_name="clickhouse_table", 
+    payload={
+        "partition_by": "my_column_name, my_other_column_name",
+        "order_by": "my_column_name, my_other_column_name",
+        "database_name": "my_database_name",
+        "path": "path_to_new_engine" # Optional: If no path is chosen, a default path is defined automatically
+    })
+
+# Payload response
+{
+    "message": "Table engine changed to replicated merge tree: <>"
+}
+```
+
+- Import data from an external cluster, creating tables if necessary
+> Given a cluster slug, external connection parameters and a list of tables, import data from an external cluster.
+```python
+gigapipe_client.clusters.import_from_external_cluster(
+    "cluster-test",
+    external_cluster_params={
+        "host": "route_to_host",
+        "port": "port number", 
+        "database": "database_name",
+        "username": "username",
+        "password": "password"
+    },
+    table_arrays=[{
+        "table_name": "string",
+        "create_table": True
+    }]
+)
+
+# Payload response
+{
+    "message": "Successfully imported external data: <>"
 }
 ```
 
@@ -803,6 +858,20 @@ gigapipe_client.clickhouse.get_formats()
         "exports": True
     },
     ...
+]
+```
+
+- Get Versions
+> Obtains the clickhouse versions
+```python
+gigapipe_client.clickhouse.get_versions()
+
+# Payload response
+[
+  {
+    "name": "string",
+    "id": 0
+  }
 ]
 ```
 

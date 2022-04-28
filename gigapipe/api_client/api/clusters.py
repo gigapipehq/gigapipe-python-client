@@ -1,11 +1,12 @@
+from http import HTTPStatus
 from typing import Dict, Any, List
 
 import requests
-from http import HTTPStatus
 from requests import Response
-from gigapipe.exceptions import GigapipeServerError
+
 from gigapipe.api_client.api import Base
 from gigapipe.api_client.gigapipe_api import GigapipeApi
+from gigapipe.exceptions import GigapipeServerError
 
 
 class Clusters(Base):
@@ -282,27 +283,6 @@ class Clusters(Base):
         return response
 
     @GigapipeApi.autorefresh_access_token
-    def get_autoscaling(self, cluster_slug: str, *, disk_id: int) -> Response:
-        """
-        Obtains the disk autoscaling for a given disk and cluster
-        :param disk_id: the id of the disk
-        :param cluster_slug: the cluster slug
-        :return: A message response
-        """
-        url: str = f"{self.api.url}/{self.api.__class__.version}/clusters/{cluster_slug}/disks/{disk_id}/autoscale"
-
-        try:
-            response: Response = requests.get(url, headers={
-                "Authorization": f"Bearer {self.api.access_token}"
-            })
-        except requests.RequestException as e:
-            raise GigapipeServerError(
-                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
-                message=f"Internal Server Error: {e}"
-            )
-        return response
-
-    @GigapipeApi.autorefresh_access_token
     def delete_autoscaling(self, cluster_slug: str, *, disk_id: int) -> Response:
         """
         Does away with the autoscaling for a given disk
@@ -316,6 +296,28 @@ class Clusters(Base):
             response: Response = requests.delete(url, headers={
                 "Authorization": f"Bearer {self.api.access_token}"
             })
+        except requests.RequestException as e:
+            raise GigapipeServerError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                message=f"Internal Server Error: {e}"
+            )
+        return response
+
+    @GigapipeApi.autorefresh_access_token
+    def expand_disk(self, cluster_slug: str, *, disk_id: int, payload: Dict[str, int]) -> Response:
+        """
+        Expands a disk base on a cluster a disk id and a size
+        :param payload: the size to expand the disk
+        :param cluster_slug: the cluster slug
+        :param disk_id
+        :return: A message response
+        """
+        url: str = f"{self.api.url}/{self.api.__class__.version}/clusters/{cluster_slug}/disks/{disk_id}/expand"
+
+        try:
+            response: Response = requests.patch(url, headers={
+                "Authorization": f"Bearer {self.api.access_token}"
+            }, json=payload)
         except requests.RequestException as e:
             raise GigapipeServerError(
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -343,3 +345,76 @@ class Clusters(Base):
             )
         return response
 
+    @GigapipeApi.autorefresh_access_token
+    def change_clickhouse_version(self, cluster_slug: str, *, payload: Dict[str, int]) -> Response:
+        """
+        Changes Clickhouse version of an existing cluster
+        :param cluster_slug: the cluster slug
+        :param payload: dictionary containing the id of the target ClickHouse version
+        :return: A message response
+        """
+        url: str = f"{self.api.url}/{self.api.__class__.version}/clusters/{cluster_slug}/clickhouse-version"
+
+        try:
+            response: Response = requests.patch(
+                url, headers={"Authorization": f"Bearer {self.api.access_token}"}, json=payload
+            )
+        except requests.RequestException as e:
+            raise GigapipeServerError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                message=f"Internal Server Error: {e}"
+            )
+        return response
+
+    @GigapipeApi.autorefresh_access_token
+    def engine_to_replicated_merge_tree(
+            self, cluster_slug: str, table_name: str, *, payload: Dict[str, str]
+    ) -> Response:
+        """
+        Changes engine of table in ClickHouse cluster to replicated merge tree
+        :param cluster_slug: the cluster slug
+        :param table_name: the table to modify
+        :param payload: engine to replicated merge tree payload
+        :return: A message response
+        """
+        url: str = f"{self.api.url}/{self.api.__class__.version}/clusters/{cluster_slug}" \
+                   f"/tables/{table_name}/replicated-merge-tree-engine"
+
+        try:
+            response: Response = requests.patch(
+                url, headers={"Authorization": f"Bearer {self.api.access_token}"}, json=payload
+            )
+        except requests.RequestException as e:
+            raise GigapipeServerError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                message=f"Internal Server Error: {e}"
+            )
+        return response
+
+    @GigapipeApi.autorefresh_access_token
+    def import_from_external_cluster(
+            self, cluster_slug: str, *, external_cluster_params: Dict[str, str], table_arrays: List[Dict[str, Any]]
+    ) -> Response:
+        """
+        Changes engine of table in ClickHouse cluster to replicated merge tree
+        :param cluster_slug: the cluster slug
+        :param external_cluster_params: parameters to connect to the external cluster
+        :param table_arrays: list of tables and booleans to define if create table necessary
+        :return: A message response
+        """
+        url: str = f"{self.api.url}/{self.api.__class__.version}/clusters/{cluster_slug}/import-from-external-cluster"
+
+        try:
+            response: Response = requests.post(
+                url, headers={"Authorization": f"Bearer {self.api.access_token}"},
+                json={
+                    "req": external_cluster_params,
+                    "table_arrays": table_arrays
+                }
+            )
+        except requests.RequestException as e:
+            raise GigapipeServerError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                message=f"Internal Server Error: {e}"
+            )
+        return response
