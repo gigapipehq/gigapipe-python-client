@@ -6,7 +6,7 @@ from requests import Response
 
 from gigapipe.api_client.api import Base
 from gigapipe.api_client.gigapipe_api import GigapipeApi
-from gigapipe.exceptions import GigapipeServerError
+from gigapipe.exceptions import GigapipeServerError, GigapipeClientError
 
 
 class Clusters(Base):
@@ -259,6 +259,11 @@ class Clusters(Base):
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                 message=f"Internal Server Error: {e}"
             )
+        except TypeError:
+            raise GigapipeClientError(
+                status_code=HTTPStatus.BAD_REQUEST,
+                message=f"Wrong Payload"
+            )
         return response
 
     @GigapipeApi.autorefresh_access_token
@@ -279,6 +284,11 @@ class Clusters(Base):
             raise GigapipeServerError(
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                 message=f"Internal Server Error: {e}"
+            )
+        except TypeError:
+            raise GigapipeClientError(
+                status_code=HTTPStatus.BAD_REQUEST,
+                message=f"Wrong Payload"
             )
         return response
 
@@ -323,6 +333,11 @@ class Clusters(Base):
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                 message=f"Internal Server Error: {e}"
             )
+        except TypeError:
+            raise GigapipeClientError(
+                status_code=HTTPStatus.BAD_REQUEST,
+                message=f"Wrong Payload"
+            )
         return response
 
     @GigapipeApi.autorefresh_access_token
@@ -364,6 +379,11 @@ class Clusters(Base):
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                 message=f"Internal Server Error: {e}"
             )
+        except TypeError:
+            raise GigapipeClientError(
+                status_code=HTTPStatus.BAD_REQUEST,
+                message=f"Wrong Payload"
+            )
         return response
 
     @GigapipeApi.autorefresh_access_token
@@ -388,6 +408,11 @@ class Clusters(Base):
             raise GigapipeServerError(
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                 message=f"Internal Server Error: {e}"
+            )
+        except TypeError:
+            raise GigapipeClientError(
+                status_code=HTTPStatus.BAD_REQUEST,
+                message=f"Wrong Payload"
             )
         return response
 
@@ -416,5 +441,10 @@ class Clusters(Base):
             raise GigapipeServerError(
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                 message=f"Internal Server Error: {e}"
+            )
+        except TypeError:
+            raise GigapipeClientError(
+                status_code=HTTPStatus.BAD_REQUEST,
+                message=f"Wrong Payload"
             )
         return response

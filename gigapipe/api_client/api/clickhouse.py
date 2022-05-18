@@ -2,7 +2,7 @@ import requests
 from http import HTTPStatus
 from typing import Dict, Any, Optional
 from requests import Response
-from gigapipe.exceptions import GigapipeServerError
+from gigapipe.exceptions import GigapipeServerError, GigapipeClientError
 from gigapipe.api_client.api import Base
 from gigapipe.api_client.gigapipe_api import GigapipeApi
 
@@ -35,6 +35,11 @@ class Clickhouse(Base):
             raise GigapipeServerError(
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                 message=f"Internal Server Error: {e}"
+            )
+        except TypeError:
+            raise GigapipeClientError(
+                status_code=HTTPStatus.BAD_REQUEST,
+                message=f"Wrong Payload"
             )
         return response
 
@@ -73,6 +78,11 @@ class Clickhouse(Base):
             raise GigapipeServerError(
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                 message=f"Internal Server Error: {e}"
+            )
+        except TypeError:
+            raise GigapipeClientError(
+                status_code=HTTPStatus.BAD_REQUEST,
+                message=f"Wrong Payload"
             )
         return response
 
