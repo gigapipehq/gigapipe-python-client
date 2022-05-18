@@ -21,6 +21,10 @@ v0.1.16 (04/03/2022)
 -------------------
 - Adds Gateway and Gatekeeper
 
-v0.1.17 (04/03/2022)
+v0.1.17 (18/05/2022)
+-------------------
+- Fixes a response error
+
+v0.1.18 (18/05/2022)
 -------------------
 - Allows users to update/remode their company tax id

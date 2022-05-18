@@ -57,7 +57,7 @@ class Stripe(Base):
             )
         except TypeError:
             raise GigapipeClientError(
-                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                status_code=HTTPStatus.BAD_REQUEST,
                 message=f"Wrong Payload"
             )
         return response
