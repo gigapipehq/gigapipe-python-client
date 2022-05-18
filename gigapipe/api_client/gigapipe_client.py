@@ -7,7 +7,8 @@ from gigapipe.api_client.api import (
     Clusters,
     Clickhouse,
     Imports,
-    Integrations
+    Integrations,
+    Stripe
 )
 from gigapipe.api_client.gigapipe_api import GigapipeApi
 
@@ -36,6 +37,7 @@ class GigapipeClient(object):
         self.__clickhouse = Clickhouse(self.api)
         self.__imports = Imports(self.api)
         self.__integrations = Integrations(self.api)
+        self.__stripe = Stripe(self.api)
 
     @property
     def root(self):
@@ -105,7 +107,15 @@ class GigapipeClient(object):
     def integrations(self):
         """
         Integrations instance
-        :return: The instance that handles all the clickhouse-related calls
+        :return: The instance that handles all the integrations-related calls
         """
         return self.__integrations
+
+    @property
+    def stripe(self):
+        """
+        Stripe instance
+        :return: The instance that handles all the stripe-related calls
+        """
+        return self.__stripe
 
