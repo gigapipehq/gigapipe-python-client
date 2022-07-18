@@ -1012,6 +1012,178 @@ gigapipe_client.stripe.delete_tax_id()
 }
 ```
 
+### Backups
+
+#### Use your Gigapipe instance to make calls to the library.
+
+- Get the organization backups
+> Obtains the backups for the clusters belonging to a specific organization
+```python
+gigapipe_client.backups.get_organization_backups()
+
+# Payload response
+[
+    {
+        "id": 1,
+        "timestamp": "1655991226",
+        "cronjob": {
+            "interval": "* * */5 *",
+            "target_metadata": "example",
+            "name": "cronjob_name",
+            "cluster": {
+                "name": "cluster_name",
+                "slug": "cluster-slug"
+            }
+        }
+    }
+    ...
+]
+```
+
+- Get the cluster backups
+> Obtains the backups for a specific cluster
+```python
+gigapipe_client.backups.get_cluster_backups('cluster-slug')
+
+# Payload response
+[
+    {
+        "id": 1,
+        "timestamp": "1655991226",
+        "cronjob": {
+            "interval": "* * */5 *",
+            "target_metadata": "example",
+            "name": "cronjob_name",
+            "cluster": {
+                "name": "cluster_name",
+                "slug": "cluster-slug"
+            }
+        }
+    }
+    ...
+]
+```
+
+- Restore from backup
+> Restores a backup in a specific cluster
+```python
+gigapipe_client.backups.restore_backup('cluster-slug', backup_payload={
+    'backup_id': 1
+})
+
+# Payload response
+{
+    "message": "Restore process in progress."
+}
+```
+
+- Get the organization cronjobs
+> Obtains the backup cronjobs belonging to the clusters of the organization
+```python
+gigapipe_client.backups.get_organization_backups_cronjobs()
+
+# Payload response
+[
+    {
+        "interval": "* * */5 *",
+        "target_metadata": "example",
+        "name": "cronjob name",
+        "id": 1,
+        "status": "Active",
+        "cluster": {
+            "name": "cluster_name",
+            "slug": "cluster-slug"
+        }
+    }
+]
+```
+
+- Get the cluster cronjobs
+> Obtains the backup cronjobs belonging to a specific cluster
+```python
+gigapipe_client.backups.get_cluster_backups_cronjobs('cluster-slug')
+
+# Payload response
+[
+    {
+        "interval": "* * */5 *",
+        "target_metadata": "example",
+        "name": "cronjob name",
+        "id": 1,
+        "status": "Active",
+        "cluster": {
+            "name": "cluster_name",
+            "slug": "cluster-slug"
+        }
+    }
+    ...
+]
+```
+
+- Get backup cronjob
+> Given the ID, it obtains the backup cronjob
+```python
+gigapipe_client.backups.get_cluster_backups_cronjobs(cronjob_id=1)
+
+# Payload response
+[
+    {
+        "interval": "* * */5 *",
+        "target_metadata": "example",
+        "name": "cronjob name",
+        "id": 1,
+        "status": "Active",
+        "cluster": {
+            "name": "cluster_name",
+            "slug": "cluster-slug"
+        }
+    }
+    ...
+]
+```
+
+- Create a backup cronjob
+> Creates a backup cronjob
+```python
+gigapipe_client.backups.create_backup_cronjob('cluster-slug', cronjob_payload={
+    "interval": "* * */5 *",
+    "target_metadata": "example",
+    "name": "cronjob name"
+})
+
+# Payload response
+{
+    "message": "Backup cronjob creation in progress."
+}
+```
+
+- Updates a backup cronjob
+> Updates a backup cronjob
+```python
+gigapipe_client.backups.update_backup_cronjob('cluster-slug', cronjob_payload={
+    "id": 1,
+    "interval": "* * */5 *",
+    "target_metadata": "example",
+    "name": "cronjob name"
+})
+
+# Payload response
+{
+    "message": "Backup cronjob update in progress."
+}
+```
+
+- Deletes a backup cronjob
+> Given a cluster slug and a cronjob id, it removes a backup cronjob
+```python
+gigapipe_client.backups.update_backup_cronjob('cluster-slug', cronjob_id=1)
+
+# Payload response
+{
+    "message": "Backup cronjob delete in progress."
+}
+```
+
 --- 
 
 _Should you require further information, do not hesitate to visit the [Gigapipe API Docs](https://docs.gigapipe.com/api/introduction)._
