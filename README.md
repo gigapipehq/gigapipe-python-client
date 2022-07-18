@@ -969,6 +969,49 @@ gigapipe_client.integrations.get_integrations()
 ]
 ```
 
+### Stripe
+
+#### Use your Gigapipe instance to make calls to the library.
+
+- Post company TAX ID
+> Adds or update the tax ID 
+```python
+gigapipe_client.stripe.post_tax_id({
+    'tax_type': 'au_abn',
+    'tax_value': '12345678912'
+})
+
+# Payload response
+{
+  "message": "Tax ID updated in organization <organization-slug>"
+}
+
+```
+
+- Get the company TAX ID
+> Obtains the company TAX ID
+```python
+gigapipe_client.stripe.get_tax_id()
+
+# Payload response
+{
+    "tax_type": "au_abn",
+    "tax_value": "12345678912",
+    "tax_country": "AU"
+}
+```
+
+- Delete the company TAX ID
+> Does away with the company TAX ID
+```python
+gigapipe_client.stripe.delete_tax_id()
+
+# Payload response
+{
+    "message": "Tax ID deleted in organization <gigapipe>"
+}
+```
+
 --- 
 
 _Should you require further information, do not hesitate to visit the [Gigapipe API Docs](https://docs.gigapipe.com/api/introduction)._

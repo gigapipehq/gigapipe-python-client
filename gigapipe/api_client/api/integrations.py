@@ -1,6 +1,5 @@
 import requests
 from http import HTTPStatus
-from typing import Dict
 from requests import Response
 from gigapipe.exceptions import GigapipeServerError
 from gigapipe.api_client.api import Base
