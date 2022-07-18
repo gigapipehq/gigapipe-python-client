@@ -8,4 +8,5 @@ from .clusters import Clusters
 from .clickhouse import Clickhouse
 from .imports import Imports
 from .integrations import Integrations
+from .stripe import Stripe
 from .backups import Backups
