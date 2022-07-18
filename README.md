@@ -1169,7 +1169,7 @@ gigapipe_client.backups.update_backup_cronjob('cluster-slug', cronjob_payload={
 
 # Payload response
 {
-    "message": "Backup cronjob creation in progress."
+    "message": "Backup cronjob update in progress."
 }
 ```
 
@@ -1180,7 +1180,7 @@ gigapipe_client.backups.update_backup_cronjob('cluster-slug', cronjob_id=1)
 
 # Payload response
 {
-    "message": "Backup cronjob creation in progress."
+    "message": "Backup cronjob delete in progress."
 }
 ```
 

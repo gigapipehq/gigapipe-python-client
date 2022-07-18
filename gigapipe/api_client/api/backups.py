@@ -61,7 +61,7 @@ class Backups(Base):
     @GigapipeApi.autorefresh_access_token
     def restore_backup(self, cluster_slug: str, *, backup_payload: Dict[str, Any]) -> Response:
         """
-        Creates a new backup cronjob
+        Restores from a backup
         :param cluster_slug: the cluster which the backup will be restored for
         :param backup_payload: the dictionary containing the necessary info to restore a backup
         :return: A message response
