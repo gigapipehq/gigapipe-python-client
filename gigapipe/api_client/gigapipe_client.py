@@ -7,7 +7,8 @@ from gigapipe.api_client.api import (
     Clusters,
     Clickhouse,
     Imports,
-    Integrations
+    Integrations,
+    Backups
 )
 from gigapipe.api_client.gigapipe_api import GigapipeApi
 
@@ -36,6 +37,7 @@ class GigapipeClient(object):
         self.__clickhouse = Clickhouse(self.api)
         self.__imports = Imports(self.api)
         self.__integrations = Integrations(self.api)
+        self.__backups = Backups(self.api)
 
     @property
     def root(self):
@@ -108,4 +110,12 @@ class GigapipeClient(object):
         :return: The instance that handles all the clickhouse-related calls
         """
         return self.__integrations
+
+    @property
+    def backups(self):
+        """
+        Backups instance
+        :return: The instance that handles all the backups-related calls
+        """
+        return self.__backups
 

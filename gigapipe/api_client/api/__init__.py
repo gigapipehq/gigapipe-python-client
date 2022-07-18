@@ -8,4 +8,4 @@ from .clusters import Clusters
 from .clickhouse import Clickhouse
 from .imports import Imports
 from .integrations import Integrations
-
+from .backups import Backups
