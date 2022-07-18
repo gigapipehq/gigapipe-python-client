@@ -597,30 +597,6 @@ gigapipe_client.clusters.change_machine("cluster-test", machine_id=2)
 }
 ```
 
-- Change the disk autoscaling
-> Sets the disk autoscaling type and value
-```python
-gigapipe_client.clusters.autoscale_disk("cluster-test", payload={
-    "id": 1  # The id of the disk to autoscale
-})
-
-# Payload response
-{
-    "message": "Disk autoscaling successfully set up for disk: <1>"
-}
-```
-
-- Delete disk autoscaling
-> Sets the autoscaling type and value to null for a given disk and cluster
-```python
-gigapipe_client.clusters.delete_autoscaling("cluster-test", disk_id=1)
-
-# Payload response
-{
-    "message": "Disk autoscaling successfully deleted for disk: <1>"
-}
-```
-
 - Disk Expansion
 > Expands a disk base on a cluster a disk id and a size
 ```python
